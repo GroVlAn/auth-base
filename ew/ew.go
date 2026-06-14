@@ -9,18 +9,30 @@ const (
 	ErrorTypeInternal
 )
 
+const (
+	InternalServerError = "internal server error"
+)
+
 type Error struct {
 	errType ErrorType
 	err     error
 	msg     string
 }
 
-func New(errType ErrorType, err error, msg string) *Error {
+func New(errType ErrorType, err error) *Error {
 	return &Error{
 		errType: errType,
 		err:     err,
-		msg:     msg,
+		msg:     InternalServerError,
 	}
+}
+
+func (ew *Error) Msg(msg string) {
+	if len(msg) == 0 {
+		return
+	}
+
+	ew.msg = msg
 }
 
 func (ew *Error) Error() string {
