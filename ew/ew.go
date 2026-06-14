@@ -27,12 +27,14 @@ func New(errType ErrorType, err error) *Error {
 	}
 }
 
-func (ew *Error) Msg(msg string) {
+func (ew *Error) Msg(msg string) *Error {
 	if len(msg) == 0 {
-		return
+		return ew
 	}
 
 	ew.msg = msg
+
+	return ew
 }
 
 func (ew *Error) Error() string {
