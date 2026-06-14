@@ -21,6 +21,7 @@ var httpCodes = map[ew.ErrorType]int{
 type ResponseError struct {
 	Status  int
 	Message string
+	LogMsg  string
 	Fields  []ew.ValidationField `json:"fields"`
 }
 
@@ -32,6 +33,7 @@ func HandleError(err error) ResponseError {
 		return ResponseError{
 			Status:  http.StatusBadRequest,
 			Message: errValidation.Error(),
+			LogMsg:  errValidation.Error(),
 			Fields:  errValidation.Fields(),
 		}
 	}
@@ -40,6 +42,7 @@ func HandleError(err error) ResponseError {
 		return ResponseError{
 			Status:  httpCodes[errWrapper.ErrorType()],
 			Message: errWrapper.Error(),
+			LogMsg:  errWrapper.Unwrap().Error(),
 			Fields:  nil,
 		}
 	}
@@ -47,6 +50,7 @@ func HandleError(err error) ResponseError {
 	return ResponseError{
 		Status:  http.StatusInternalServerError,
 		Message: internalServerError,
+		LogMsg:  internalServerError,
 		Fields:  nil,
 	}
 }
