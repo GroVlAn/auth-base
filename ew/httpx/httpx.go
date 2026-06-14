@@ -21,7 +21,7 @@ var httpCodes = map[ew.ErrorType]int{
 type ResponseError struct {
 	Status  int
 	Message string
-	Fields  []ew.ValidationField
+	Fields  []ew.ValidationField `json:"fields"`
 }
 
 func HandleError(err error) ResponseError {

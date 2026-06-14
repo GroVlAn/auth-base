@@ -1,8 +1,8 @@
 package ew
 
 type ValidationField struct {
-	Field  string
-	Reason string
+	Field  string `json:"field"`
+	Reason string `json:"reason"`
 }
 
 type ErrValidation struct {
